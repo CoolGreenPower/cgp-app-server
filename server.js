@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const { VAR_SERVER_PORT, VAR_DATABASE_URL } = require('./src/modules/ApplicationPropertiesSingleton')
 const serviceRecordRoute = require('./src/routes/serviceRecordRoute')
 
-mongoose.connect(`${VAR_DATABASE_URL}`, {useNewUrlParser: true});
+mongoose.connect(`${VAR_DATABASE_URL}`, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = Promise
 
 

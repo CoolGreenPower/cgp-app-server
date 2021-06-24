@@ -7,7 +7,7 @@ const FILE_NAME = 'serviceRecordRoute.js'
 router.post(`/`, (req, res) => {
     LOGGER.debug(`Entering service record route in ${FILE_NAME}`)
     addServiceRecord(req.body)
-    .then()
+    .then(result => res.send(result))
     .catch()
 })
 

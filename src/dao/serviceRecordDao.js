@@ -1,3 +1,4 @@
+const LOGGER = require('../logger/logger')
 const serviceCheckModel = require('../models/serviceCheckModel')
 
 const insertServiceRecord = (serviceRecord) => {

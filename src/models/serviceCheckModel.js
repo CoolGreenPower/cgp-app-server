@@ -10,7 +10,6 @@ const serviceRecordSchema = new mongoose.Schema({
       },
       siteName: {
         type: String,
-        required: true,
       },
       serviceCategory: {
         type: String
