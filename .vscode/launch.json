@@ -14,7 +14,7 @@
             "program": "${workspaceFolder}/server.js",
             "env": {
                 "SERVER_PORT" : "8080",
-                "DATABASE_URL" : "mongodb://smunikoti:root@localhost:27017"
+                "DATABASE_URL" : "mongodb://localhost:27017/coolgreenpower"
             },
             "console": "integratedTerminal"
         }

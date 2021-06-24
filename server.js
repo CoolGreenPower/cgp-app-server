@@ -2,9 +2,14 @@ const express = require('express')
 const app = express()
 const bodyParser = express.json()
 const cors = require('cors')
+const mongoose = require('mongoose')
 
-const { VAR_SERVER_PORT } = require('./src/modules/ApplicationPropertiesSingleton')
+const { VAR_SERVER_PORT, VAR_DATABASE_URL } = require('./src/modules/ApplicationPropertiesSingleton')
 const serviceRecordRoute = require('./src/routes/serviceRecordRoute')
+
+mongoose.connect(`${VAR_DATABASE_URL}`, {useNewUrlParser: true});
+mongoose.Promise = Promise
+
 
 app.use(bodyParser);
 app.use(cors());
