@@ -18,7 +18,7 @@ const serviceRecordSchema = new mongoose.Schema({
         type: String
       },
       serviceName: {
-        type: String
+        type: [String]
       },
       lastServiceDate: {
         type: Date
