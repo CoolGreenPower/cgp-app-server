@@ -14,7 +14,8 @@
             "program": "${workspaceFolder}/server.js",
             "env": {
                 "SERVER_PORT" : "8080",
-                "DATABASE_URL" : "mongodb://localhost:27017/coolgreenpower"
+                "DATABASE_URL" : "mongodb://localhost:27017/coolgreenpower",
+                "SECRET" : "secret_salt@cgp"
             },
             "console": "integratedTerminal"
         }
