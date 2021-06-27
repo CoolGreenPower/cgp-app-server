@@ -12,6 +12,9 @@ const userSchema = new Schema({
     },
     sites: {
         type: [String]
+    },
+    password: {
+        type: String
     }
 })
 

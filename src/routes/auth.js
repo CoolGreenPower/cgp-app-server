@@ -1,12 +1,13 @@
-const { Router } = require('express')
+const router = require('express').Router()
 const { check, validationResult } = require('express-validator')
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const { VAR_SECRET } = require('../modules/ApplicationPropertiesSingleton')
+const bcrypt = require('bcryptjs')
 
-Router.post('/',
+router.post('/',
     [check('password', 'Password is required').exists()],
-    (req, res) => {
+    async (req, res) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -15,7 +16,7 @@ Router.post('/',
         const { username, password } = req.body;
 
         try {
-            let user = User.findOne({ username })
+            let user = await User.findOne({ username })
 
             if (!user) {
                 return res.status(400)
@@ -54,4 +55,4 @@ Router.post('/',
     }
 )
 
-module.exports = Router
+module.exports = router
