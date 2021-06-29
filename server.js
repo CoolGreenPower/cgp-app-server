@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const { VAR_SERVER_PORT, VAR_DATABASE_URL } = require('./src/modules/ApplicationPropertiesSingleton')
 const serviceRecordRoute = require('./src/routes/serviceRecordRoute')
 const authRoute = require('./src/routes/auth')
+const alerts = require('./src/routes/alertRoute')
 
 mongoose.connect(`${VAR_DATABASE_URL}`, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = Promise
@@ -17,6 +18,7 @@ app.options('*', cors());
 
 app.use('/serviceRecord', serviceRecordRoute)
 app.use('/login/auth', authRoute)
+app.use('/alerts', alerts)
 
 app.get('/', (req, res) => {
     res.send(`Hello World!`)
