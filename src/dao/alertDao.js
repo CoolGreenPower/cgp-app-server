@@ -3,7 +3,7 @@ const alert = require('../models/alertModel')
 
 const FILE_NAME = 'alertDao.js'
 
-const findAlertsBySiteName = (query) => {
+const findAlerts = (query) => {
     LOGGER.debug(`Entering findAlertsBySiteName in :: ${FILE_NAME}`)
     alerts = []
 
@@ -22,5 +22,5 @@ const findAlertsBySiteName = (query) => {
 }
 
 module.exports = {
-    findAlertsBySiteName
+    findAlerts
 }
