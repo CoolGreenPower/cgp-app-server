@@ -2,6 +2,9 @@ const router = require('express').Router()
 const LOGGER = require('../logger/logger')
 const { authenticateToken } = require('../utils/authentication')
 const alertDao = require('../dao/alertDao')
+const alertService = require('../services/alertService')
+const mongoose = require('mongoose')
+
 
 const FILE_NAME = 'alertRoute.js'
 
@@ -24,11 +27,14 @@ router.post('/', authenticateToken, (req, res) => {
 //route to return alerts filtered with alertCategory
 router.post('/category', authenticateToken, (req, res) => {
     LOGGER.debug(`Entering post alert route after token authentication :: ${FILE_NAME}`)
+    
+    sites = []
+
     const query = {
-        site: req.body.siteName,
-        alertCategory: req.body.alertCategory
+        _id: mongoose.Types.ObjectId(req.body.userId)
     }
-    alertDao.findAlerts(query)
+
+    alertService.findAlerts(query)
     .then(result => {
         res.status(200).send(result)
     })
