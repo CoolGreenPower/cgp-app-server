@@ -2,6 +2,7 @@
 //category: Employee, Service Contractor, Owner etc
 
 const { Schema, model } = require('mongoose')
+const buildings = require('../models/buildingModel')
 
 const userSchema = new Schema({
     username: {
@@ -10,9 +11,10 @@ const userSchema = new Schema({
     userCategory: {
         type: String
     },
-    sites: {
-        type: [String]
-    },
+    sites: [{
+                type: Schema.Types.ObjectId,
+                ref: 'buildings'
+            }],
     password: {
         type: String
     }

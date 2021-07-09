@@ -22,7 +22,7 @@ const findAlertsBySiteName = (sites) => {
         await alert.find(tquery)
         .exec()
         .then(res => {
-            console.log(res)
+            // console.log(res)
             for (let i = 0; i < res.length; i++) {
                 alerts.push(res[i]._doc)
             }
@@ -41,7 +41,7 @@ const findAlerts = (query) => {
         await alert.find(query)
         .exec()
         .then(res => {
-            console.log(res)
+            // console.log(res)
             for (let i = 0; i < res.length; i++) {
                 alerts.push(res[i]._doc)
             }
@@ -70,9 +70,6 @@ const findSites = (query) => {
         .catch(err => reject(err))
         
     })
-
-    
-
 }
 
 module.exports = {
