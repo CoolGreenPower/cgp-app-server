@@ -1,7 +1,12 @@
 const mongoose = require('mongoose')
-const User = require('../models/userModel')
+const users = require('../models/userModel')
+const utilities = require('../models/utilityModel')
 
 const buildingSchema = new mongoose.Schema({
+    alerts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'alerts'
+    }],
     type: {
         type: String
     },
@@ -17,18 +22,19 @@ const buildingSchema = new mongoose.Schema({
     phone: {
         type: String
     },
+    imageLink: {
+        type: String
+    },
     users: {
         type: [String]
     },
-    utility: {
-        type: String
-    },
-    utilityacctnumber: {
-        type: Number
-    },
+    utility: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'utilities'
+    }],
     authorizedusers: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'users'
     }],
     permissions: {
         type: String

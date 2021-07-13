@@ -13,7 +13,15 @@ const getBuildingsByUser = (query) => {
         }
 
         await User.find(query, attribute)
-        .populate('sites')
+        .populate({
+            path: 'sites',
+            model: 'buildings',
+            populate: {
+                path: 'utility',
+                model: 'utilities'
+            }
+        })
+        // .populate('utilities')
         .exec()
         .then(res => {
             resolve(res)

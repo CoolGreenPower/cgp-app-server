@@ -6,6 +6,10 @@ const alertSchema = new Schema({
     site: {
         type: String
     },
+    device: {
+        type: Schema.Types.ObjectId,
+        ref: 'utilities'
+    },
     severity: {
         type: String
     },
