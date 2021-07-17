@@ -30,7 +30,6 @@ const findAlertsByUserId = async ({ userId }) => {
 
 }
 
-
 const findAlertsBySiteName = (sites) => {
     LOGGER.debug(`Entering findAlertsBySiteName in :: ${FILE_NAME}`)
 

@@ -40,13 +40,12 @@ router.post('/', async (req, res) => {
     .then((r) => {res.status(200).send(r)})
     .catch(e => res.status(400).send(e))
     
-
 })
 
 
 //route to return alerts filtered with alertCategory
 router.post('/category', authenticateToken, (req, res) => {
-    LOGGER.debug(`Entering post alert route after token authentication :: ${FILE_NAME}`)
+    LOGGER.debug(`Entering post category alert route after token authentication :: ${FILE_NAME}`)
     
     sites = []
 
