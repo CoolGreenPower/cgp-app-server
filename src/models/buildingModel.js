@@ -25,9 +25,6 @@ const buildingSchema = new mongoose.Schema({
     imageLink: {
         type: String
     },
-    users: {
-        type: [String]
-    },
     utility: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'utilities'
