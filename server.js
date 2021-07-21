@@ -10,7 +10,11 @@ const authRoute = require('./src/routes/auth')
 const alerts = require('./src/routes/alertRoute')
 const buildings = require('./src/routes/buildingRoute')
 
-mongoose.connect(`${VAR_DATABASE_URL}`, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`${VAR_DATABASE_URL}`, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
 mongoose.Promise = Promise
 
 app.use(bodyParser);

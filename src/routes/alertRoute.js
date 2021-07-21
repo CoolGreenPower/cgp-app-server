@@ -5,24 +5,14 @@ const alertDao = require('../dao/alertDao')
 const alertService = require('../services/alertService')
 const mongoose = require('mongoose')
 
-
 const FILE_NAME = 'alertRoute.js'
 
-//route to return specific alerts
-// router.post('/', authenticateToken, (req, res) => {
-//     LOGGER.debug(`Entering post alert route after token authentication :: ${FILE_NAME}`)
-//     const query = {
-//         site: req.body.siteName
-//     }
-    
-//     alertDao.findAlerts(query)
-//     .then(result => {
-//         res.status(200).send(result)
-//     })
-//     .catch(err => {
-//         res.status(401).send(err)
-//     })
-// })
+//route to update Services Selected and also, status of the alert
+router.post('/updateServices', authenticateToken, async (req, res) => {
+    await alertDao.updateServices(req.body)
+    .then(r => res.status(200).send(r))
+    .catch(err => res.status(400).send(err))
+})
 
 
 //route to return alerts beloging to a user's buildings

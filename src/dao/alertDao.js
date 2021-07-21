@@ -30,6 +30,24 @@ const findAlertsByUserId = async ({ userId }) => {
 
 }
 
+//update status, and serviceNeeded field
+const updateServices = async (query) => {
+    LOGGER.debug(`Entering updateServices in :: ${FILE_NAME}`)
+
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "servicesNeeded": query.servicesNeeded,
+            "status": query.status
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 const findAlertsBySiteName = (sites) => {
     LOGGER.debug(`Entering findAlertsBySiteName in :: ${FILE_NAME}`)
 
@@ -101,5 +119,6 @@ module.exports = {
     findAlerts,
     findSites,
     findAlertsBySiteName,
-    findAlertsByUserId
+    findAlertsByUserId,
+    updateServices
 }

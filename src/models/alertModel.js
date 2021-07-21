@@ -27,6 +27,15 @@ const alertSchema = new Schema({
     },
     dateReported: {
         type: Date
+    }, 
+    servicesNeeded: {
+        type: [String]
+    }, 
+    serviceDate: {
+        type: Date
+    },
+    responsibleParty: {
+        type: String
     }
 })
 
