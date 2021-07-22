@@ -7,6 +7,18 @@ const mongoose = require('mongoose')
 
 const FILE_NAME = 'alertRoute.js'
 
+//fetch alert
+router.get('/:id', authenticateToken, async (req, res) => {
+    LOGGER.debug(`Entering get alertById route after token authentication :: ${FILE_NAME}`)
+
+    await alertDao.getAlertbyAlertId(req.params.id)
+    .then(result => res.status(200).send(result))
+    .catch(err => 
+        console.log(err)
+        )
+})
+
+
 //route to update Services Selected and also, status of the alert
 router.post('/updateServices', authenticateToken, async (req, res) => {
     await alertDao.updateServices(req.body)

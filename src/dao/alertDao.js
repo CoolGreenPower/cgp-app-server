@@ -4,6 +4,19 @@ const user = require('../models/userModel')
 
 const FILE_NAME = 'alertDao.js'
 
+//find alert by alertId
+const getAlertbyAlertId = (alertId) => {
+    LOGGER.debug(`Entering getAlertbyAlertId in :: ${FILE_NAME}`)
+
+    return new Promise(async (resolve, reject) => {
+
+        await alert.findById(alertId)
+        .exec()
+        .then(res => resolve(res))
+        .catch(err => reject(err))
+    })
+}
+
 const findAlertsByUserId = async ({ userId }) => {
     LOGGER.debug(`Entering findAlertsByUserId in :: ${FILE_NAME}`)
 
@@ -140,5 +153,6 @@ module.exports = {
     findAlertsBySiteName,
     findAlertsByUserId,
     updateServices,
-    scheduleService
+    scheduleService,
+    getAlertbyAlertId
 }
