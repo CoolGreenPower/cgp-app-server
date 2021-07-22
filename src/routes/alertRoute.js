@@ -14,6 +14,18 @@ router.post('/updateServices', authenticateToken, async (req, res) => {
     .catch(err => res.status(400).send(err))
 })
 
+/**
+ * Route to shcedule service
+ * 
+ * Accepts alertId, serviceDate, serviceTime, responsibleParty
+ * Returns acknowledgement
+ */
+router.post('/scheduleService', authenticateToken, async (req, res) => {
+    await alertDao.scheduleService(req.body)
+    .then(r => res.status(200).send(r))
+    .catch(err => res.status(400).send(err))
+    
+})
 
 //route to return alerts beloging to a user's buildings
 /**

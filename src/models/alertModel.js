@@ -34,6 +34,9 @@ const alertSchema = new Schema({
     serviceDate: {
         type: Date
     },
+    serviceTime: {
+        type: String
+    },
     responsibleParty: {
         type: String
     }

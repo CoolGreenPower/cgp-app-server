@@ -48,6 +48,25 @@ const updateServices = async (query) => {
     })
 }
 
+//schedule service
+const scheduleService = async query => {
+    LOGGER.debug(`Entering schedule service in :: ${FILE_NAME}`)
+
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "serviceDate": query.serviceDate,
+            "serviceTime": query.serviceTime,
+            "responsibleParty" : query.responsibleParty
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 const findAlertsBySiteName = (sites) => {
     LOGGER.debug(`Entering findAlertsBySiteName in :: ${FILE_NAME}`)
 
@@ -120,5 +139,6 @@ module.exports = {
     findSites,
     findAlertsBySiteName,
     findAlertsByUserId,
-    updateServices
+    updateServices,
+    scheduleService
 }
