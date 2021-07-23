@@ -11,9 +11,9 @@ const getAlertbyAlertId = (alertId) => {
     return new Promise(async (resolve, reject) => {
 
         await alert.findById(alertId)
-        .exec()
-        .then(res => resolve(res))
-        .catch(err => reject(err))
+            .exec()
+            .then(res => resolve(res))
+            .catch(err => reject(err))
     })
 }
 
@@ -64,12 +64,31 @@ const updateServices = async (query) => {
 //schedule service
 const scheduleService = async query => {
     LOGGER.debug(`Entering schedule service in :: ${FILE_NAME}`)
-
     return new Promise((resolve, reject) => {
         alert.findByIdAndUpdate(query.alertId, {
             "serviceDate": query.serviceDate,
             "serviceTime": query.serviceTime,
-            "responsibleParty" : query.responsibleParty
+            "responsibleParty": query.responsibleParty,
+            "updatedAt": query.updatedAt
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
+//start service
+const startService = async query => {
+    LOGGER.debug(`Entering start service in :: ${FILE_NAME}`)
+
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "responsibleParty": query.responsibleParty,
+            "updatedAt": query.updatedAt,
+            "status": query.status,
         })
             .then(res => {
                 resolve(res)
@@ -84,7 +103,6 @@ const findAlertsBySiteName = (sites) => {
     LOGGER.debug(`Entering findAlertsBySiteName in :: ${FILE_NAME}`)
 
     return new Promise(async (resolve, reject) => {
-
         const tquery = {
             $or: []
         }
@@ -154,5 +172,6 @@ module.exports = {
     findAlertsByUserId,
     updateServices,
     scheduleService,
-    getAlertbyAlertId
+    getAlertbyAlertId,
+    startService
 }

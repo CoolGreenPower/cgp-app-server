@@ -39,6 +39,9 @@ const alertSchema = new Schema({
     },
     responsibleParty: {
         type: String
+    },
+    updatedAt: {
+        type: Date
     }
 })
 
