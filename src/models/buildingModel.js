@@ -1,11 +1,16 @@
 const mongoose = require('mongoose')
 const users = require('../models/userModel')
 const utilities = require('../models/utilityModel')
+const serviceCheckAlerts = require('../models/serviceCheckAlertsModel')
 
 const buildingSchema = new mongoose.Schema({
     alerts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'alerts'
+    }],
+    serviceCheckAlerts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'serviceCheckAlerts'
     }],
     type: {
         type: String
