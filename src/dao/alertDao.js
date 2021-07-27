@@ -30,10 +30,14 @@ const findAlertsByUserId = async ({ userId }) => {
             //populate buildings first, and then alerts
             .populate({
                 path: 'sites',
-                model: 'buildings',
+                model: 'parentbuildings',
                 populate: {
-                    path: 'alerts',
-                    model: 'alerts'
+                    path: 'buildings',
+                    model: 'buildings',
+                    populate: {
+                        path: 'alerts',
+                        model: 'alerts'
+                    }
                 }
             })
             .exec()
@@ -42,6 +46,32 @@ const findAlertsByUserId = async ({ userId }) => {
     })
 
 }
+
+// const findAlertsByUserId = async ({ userId }) => {
+//     LOGGER.debug(`Entering findAlertsByUserId in :: ${FILE_NAME}`)
+
+//     return new Promise(async (resolve, reject) => {
+//         const attribute = {
+//             _id: 0,
+//             alerts: 1
+//         }
+
+//         await user.findById(userId, attribute)
+//             //populate buildings first, and then alerts
+//             .populate({
+//                 path: 'sites',
+//                 model: 'buildings',
+//                 populate: {
+//                     path: 'alerts',
+//                     model: 'alerts'
+//                 }
+//             })
+//             .exec()
+//             .then(res => resolve(res.sites))
+//             .catch(err => reject(err))
+//     })
+
+// }
 
 //update status, and serviceNeeded field
 const updateServices = async (query) => {
