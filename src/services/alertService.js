@@ -29,7 +29,17 @@ const findAlertsByUserId = async query => {
     })
 }
 
+const findAlertsByBuildingsByUserId = async query => {
+    LOGGER.debug(`Entering findAlertsByBuildingsByUserId function of ${FILE_NAME}`)
+
+    return new Promise(async (resolve, reject) => {
+        await alertDao.findAlertsByBuildingsByUserId(query)
+        .then(r => resolve(r))
+        .catch(err => reject(err))
+    })
+}
 module.exports = {
     findAlerts,
-    findAlertsByUserId
+    findAlertsByUserId,
+    findAlertsByBuildingsByUserId
 }

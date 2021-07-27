@@ -53,19 +53,36 @@ router.post('/scheduleService', authenticateToken, async (req, res) => {
 })
 
 
+//route to return alerts beloging to a user's buildings
+/**
+ * Accepts userId
+ * Returns alerts belonging to the buildings associated with this userId
+ */
+ router.post('/', async (req, res) => {
+    LOGGER.debug(`Entering post alert route after token authentication :: ${FILE_NAME}`)
+
+    const query = { userId: req.body.userId }
+
+    //fetch alerts belonging to this userId
+    await alertService.findAlertsByBuildingsByUserId(query)
+    .then((r) => {res.status(200).send(r)})
+    .catch(e => res.status(400).send(e))
+    
+})
+
 
 //route to return alerts beloging to a user's buildings
 /**
  * Accepts userId
  * Returns alerts belonging to the buildings associated with this userId
  */
-router.post('/', async (req, res) => {
+router.post('/buildings', async (req, res) => {
     LOGGER.debug(`Entering post alert route after token authentication :: ${FILE_NAME}`)
 
     const query = { userId: req.body.userId }
 
     //fetch alerts belonging to this userId
-    await alertService.findAlertsByUserId(query)
+    await alertService.findAlertsByBuildingsByUserId(query)
     .then((r) => {res.status(200).send(r)})
     .catch(e => res.status(400).send(e))
     

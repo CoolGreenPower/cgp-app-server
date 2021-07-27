@@ -17,7 +17,7 @@ const getAlertbyAlertId = (alertId) => {
     })
 }
 
-const findAlertsByUserId = async ({ userId }) => {
+const findAlertsByBuildingsByUserId = async ({ userId }) => {
     LOGGER.debug(`Entering findAlertsByUserId in :: ${FILE_NAME}`)
 
     return new Promise(async (resolve, reject) => {
@@ -47,31 +47,31 @@ const findAlertsByUserId = async ({ userId }) => {
 
 }
 
-// const findAlertsByUserId = async ({ userId }) => {
-//     LOGGER.debug(`Entering findAlertsByUserId in :: ${FILE_NAME}`)
+const findAlertsByUserId = async ({ userId }) => {
+    LOGGER.debug(`Entering findAlertsByUserId in :: ${FILE_NAME}`)
 
-//     return new Promise(async (resolve, reject) => {
-//         const attribute = {
-//             _id: 0,
-//             alerts: 1
-//         }
+    return new Promise(async (resolve, reject) => {
+        const attribute = {
+            _id: 0,
+            alerts: 1
+        }
 
-//         await user.findById(userId, attribute)
-//             //populate buildings first, and then alerts
-//             .populate({
-//                 path: 'sites',
-//                 model: 'buildings',
-//                 populate: {
-//                     path: 'alerts',
-//                     model: 'alerts'
-//                 }
-//             })
-//             .exec()
-//             .then(res => resolve(res.sites))
-//             .catch(err => reject(err))
-//     })
+        await user.findById(userId, attribute)
+            //populate buildings first, and then alerts
+            .populate({
+                path: 'sites',
+                model: 'buildings',
+                populate: {
+                    path: 'alerts',
+                    model: 'alerts'
+                }
+            })
+            .exec()
+            .then(res => resolve(res.sites))
+            .catch(err => reject(err))
+    })
 
-// }
+}
 
 //update status, and serviceNeeded field
 const updateServices = async (query) => {
@@ -203,5 +203,6 @@ module.exports = {
     updateServices,
     scheduleService,
     getAlertbyAlertId,
-    startService
+    startService,
+    findAlertsByBuildingsByUserId
 }
