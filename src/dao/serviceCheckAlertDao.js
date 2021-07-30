@@ -1,5 +1,5 @@
 const LOGGER = require('../logger/logger')
-const alert = require('../models/alertModel')
+const alert = require('../models/serviceCheckAlertsModel')
 const user = require('../models/userModel')
 
 const FILE_NAME = 'serviceCheckAlertDao.js'
@@ -33,6 +33,25 @@ const findServiceCheckAlertsByBuildingsByUserId = async ({ userId }) => {
     })
 }
 
+//update status, and serviceNeeded field
+const updateServices = async (query) => {
+    LOGGER.debug(`Entering updateServices in :: ${FILE_NAME}`)
+
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "servicesNeeded": query.servicesNeeded,
+            "status": query.status
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 module.exports = {
-    findServiceCheckAlertsByBuildingsByUserId
+    findServiceCheckAlertsByBuildingsByUserId,
+    updateServices
 }

@@ -23,4 +23,11 @@ const FILE_NAME = "serviceCheckAlertRoute"
     
 })
 
+//route to update Services Selected and also, status of the alert
+router.post('/updateServices', authenticateToken, async (req, res) => {
+    await serviceCheckAlertDao.updateServices(req.body)
+    .then(r => res.status(200).send(r))
+    .catch(err => res.status(400).send(err))
+})
+
 module.exports = router
