@@ -2,9 +2,17 @@ const router = require('express').Router()
 const LOGGER = require('../logger/logger')
 const { authenticateToken } = require('../utils/authentication')
 const serviceCheckAlertDao = require('../dao/serviceCheckAlertDao')
-const mongoose = require('mongoose')
 
 const FILE_NAME = "serviceCheckAlertRoute"
+
+//fetch alert
+router.get('/:id', authenticateToken, async (req, res) => {
+    LOGGER.debug(`Entering get serviceCheckAlertById route after token authentication :: ${FILE_NAME}`)
+
+    await serviceCheckAlertDao.getServiceCheckAlertbyAlertId(req.params.id)
+    .then(result => res.status(200).send(result))
+    .catch(err => console.log(err))
+})
 
 //route to return servicecheckalerts beloging to a user's buildings
 /**
@@ -28,6 +36,19 @@ router.post('/updateServices', authenticateToken, async (req, res) => {
     await serviceCheckAlertDao.updateServices(req.body)
     .then(r => res.status(200).send(r))
     .catch(err => res.status(400).send(err))
+})
+
+/**
+ * Route to schedule service
+ * 
+ * Accepts alertId, serviceDate, serviceTime, responsibleParty
+ * Returns acknowledgement
+ */
+ router.post('/scheduleService', authenticateToken, async (req, res) => {
+    await serviceCheckAlertDao.scheduleService(req.body)
+    .then(r => res.status(200).send(r))
+    .catch(err => res.status(400).send(err))
+    
 })
 
 module.exports = router

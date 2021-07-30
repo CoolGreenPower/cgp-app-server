@@ -33,6 +33,19 @@ const findServiceCheckAlertsByBuildingsByUserId = async ({ userId }) => {
     })
 }
 
+//find service check alert by alertId
+const getServiceCheckAlertbyAlertId = (alertId) => {
+    LOGGER.debug(`Entering getServiceCheckAlertbyAlertId in :: ${FILE_NAME}`)
+
+    return new Promise(async (resolve, reject) => {
+
+        await alert.findById(alertId)
+            .exec()
+            .then(res => resolve(res))
+            .catch(err => reject(err))
+    })
+}
+
 //update status, and serviceNeeded field
 const updateServices = async (query) => {
     LOGGER.debug(`Entering updateServices in :: ${FILE_NAME}`)
@@ -51,7 +64,28 @@ const updateServices = async (query) => {
     })
 }
 
+//schedule service
+const scheduleService = async query => {
+    LOGGER.debug(`Entering schedule service in :: ${FILE_NAME}`)
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "serviceDate": query.serviceDate,
+            "serviceTime": query.serviceTime,
+            "responsibleParty": query.responsibleParty,
+            "updatedAt": query.updatedAt
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 module.exports = {
     findServiceCheckAlertsByBuildingsByUserId,
-    updateServices
+    updateServices,
+    scheduleService,
+    getServiceCheckAlertbyAlertId
 }
