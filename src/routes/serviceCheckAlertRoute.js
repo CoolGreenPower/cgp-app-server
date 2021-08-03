@@ -51,4 +51,14 @@ router.post('/updateServices', authenticateToken, async (req, res) => {
     
 })
 
+/**
+ * Route to resolve service
+ */
+router.post('/resolve', async(req, res) => {
+    await serviceCheckAlertDao.resolveService(req.body)
+    .then(r => res.status(200).send(r))
+    .catch(err => res.status(400).send(err))
+})
+
+
 module.exports = router

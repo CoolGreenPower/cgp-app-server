@@ -83,9 +83,29 @@ const scheduleService = async query => {
     })
 }
 
+//resolve service
+const resolveService = async query => {
+    LOGGER.debug(`Entering resolve service in :: ${FILE_NAME}`)
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "responsibleParty": query.responsibleParty,
+            "updatedAt": query.updatedAt,
+            "status": query.status,
+            "notes": query.notes
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 module.exports = {
     findServiceCheckAlertsByBuildingsByUserId,
     updateServices,
     scheduleService,
-    getServiceCheckAlertbyAlertId
+    getServiceCheckAlertbyAlertId,
+    resolveService
 }

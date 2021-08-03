@@ -40,7 +40,7 @@ router.post('/scheduleService', authenticateToken, async (req, res) => {
 })
 
 /**
- * Route to schedule service
+ * Route to start service
  * 
  * Accepts alertId, updatedAt, status, responsibleParty
  * Returns acknowledgement
