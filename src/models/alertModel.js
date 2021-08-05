@@ -6,6 +6,9 @@ const alertSchema = new Schema({
     site: {
         type: String
     },
+    buildingId: {
+        type: Schema.Types.ObjectId
+    },
     device: {
         type: Schema.Types.ObjectId,
         ref: 'utilities'
@@ -39,6 +42,9 @@ const alertSchema = new Schema({
     },
     responsibleParty: {
         type: String
+    },
+    createdAt: {
+        type: Date
     },
     updatedAt: {
         type: Date

@@ -7,6 +7,9 @@ const serviceCheckAlertSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'utilities'
     },
+    buildingId: {
+        type: Schema.Types.ObjectId
+    },
     status: {
         type: String
     },
@@ -33,6 +36,9 @@ const serviceCheckAlertSchema = new Schema({
     },
     responsibleParty: {
         type: String
+    },
+    createdAt: {
+        type: Date
     },
     updatedAt: {
         type: Date

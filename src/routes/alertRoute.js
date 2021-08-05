@@ -70,6 +70,22 @@ router.post('/scheduleService', authenticateToken, async (req, res) => {
     
 })
 
+/**
+ * Route to return all resolved alerts
+ * 
+ * request body contains userId
+ */
+ router.post('/resolvedAlerts', authenticateToken, async (req, res) => {
+    
+    LOGGER.debug(`Entering post resolvedAlerts route after token authentication :: ${FILE_NAME}`)
+    const query = { userId: req.body.userId }
+
+    //fetch alerts belonging to this userId
+    await alertDao.fetchResolvedAlerts(query)
+    .then((r) => {res.status(200).send(r)})
+    .catch(e => res.status(400).send(e))
+})
+
 
 //route to return alerts beloging to a user's buildings
 /**
@@ -86,6 +102,16 @@ router.post('/buildings', async (req, res) => {
     .then((r) => {res.status(200).send(r)})
     .catch(e => res.status(400).send(e))
     
+})
+
+router.post('/conditionalAlerts', async (req, res) => {
+    LOGGER.debug(`Entering post conditionalAlerts route after token authentication :: ${FILE_NAME}`)
+
+    const query = req.body
+    await alertDao.findAlertsByConditions(query)
+    .then((r) => {res.status(200).send(r)})
+    .catch(e => res.status(400).send(e))
+
 })
 
 

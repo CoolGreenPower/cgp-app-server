@@ -1,6 +1,7 @@
 const LOGGER = require('../logger/logger')
 const alert = require('../models/alertModel')
 const user = require('../models/userModel')
+const mongoose = require('mongoose')
 
 const FILE_NAME = 'alertDao.js'
 
@@ -11,6 +12,58 @@ const getAlertbyAlertId = (alertId) => {
     return new Promise(async (resolve, reject) => {
 
         await alert.findById(alertId)
+            .exec()
+            .then(res => resolve(res))
+            .catch(err => reject(err))
+    })
+}
+
+//find only resolved alerts by buildings by parent buildings
+const fetchResolvedAlerts = async ({ userId }) => {
+    LOGGER.debug(`Entering fetchResolvedAlerts in :: ${FILE_NAME}`)
+
+    return new Promise(async (resolve, reject) => {
+        const attribute = {
+            _id: 0,
+            alerts: 1
+        }
+
+        await user.findById(userId, attribute)
+            //populate buildings first, and then alerts
+            .populate({
+                path: 'sites',
+                model: 'parentbuildings',
+                populate: {
+                    path: 'buildings',
+                    model: 'buildings',
+                    populate: {
+                        path: 'alerts',
+                        model: 'alerts'
+                    }
+                }
+            })
+            .exec()
+            .then(res => resolve(res.sites))
+            .catch(err => reject(err))
+    })
+
+}
+
+//fetch alerts by alertId, alert category and specific dates
+const findAlertsByConditions = async (query) => {
+    LOGGER.debug(`Entering findAlertsByConditions in :: ${FILE_NAME}`)
+
+    return new Promise(async (resolve, reject) => {
+        await alert.find({
+            buildingId: mongoose.Types.ObjectId(query.buildingId),
+            alertCategory: query.alertCategory,
+            severity: query.severity.toLowerCase(),
+            createdAt: {
+                $gte: new Date(query.fromDate),
+                $lte: new Date(query.toDate)
+            }
+
+        })
             .exec()
             .then(res => resolve(res))
             .catch(err => reject(err))
@@ -204,5 +257,7 @@ module.exports = {
     scheduleService,
     getAlertbyAlertId,
     startService,
-    findAlertsByBuildingsByUserId
+    findAlertsByBuildingsByUserId,
+    fetchResolvedAlerts,
+    findAlertsByConditions
 }
