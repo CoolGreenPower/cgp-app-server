@@ -126,6 +126,25 @@ const findAlertsByUserId = async ({ userId }) => {
 
 }
 
+//resolve alert
+const resolveAlert = async query => {
+    LOGGER.debug(`Entering resolve alert in :: ${FILE_NAME}`)
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "responsibleParty": query.responsibleParty,
+            "updatedAt": query.updatedAt,
+            "status": query.status,
+            "notes": query.notes
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
 //update status, and serviceNeeded field
 const updateServices = async (query) => {
     LOGGER.debug(`Entering updateServices in :: ${FILE_NAME}`)
@@ -259,5 +278,6 @@ module.exports = {
     startService,
     findAlertsByBuildingsByUserId,
     fetchResolvedAlerts,
-    findAlertsByConditions
+    findAlertsByConditions,
+    resolveAlert
 }

@@ -104,6 +104,15 @@ router.post('/buildings', async (req, res) => {
     
 })
 
+/**
+ * Route to resolve alert
+ */
+ router.post('/resolve', async(req, res) => {
+    await alertDao.resolveAlert(req.body)
+    .then(r => res.status(200).send(r))
+    .catch(err => res.status(400).send(err))
+})
+
 router.post('/conditionalAlerts', async (req, res) => {
     LOGGER.debug(`Entering post conditionalAlerts route after token authentication :: ${FILE_NAME}`)
 
@@ -113,7 +122,6 @@ router.post('/conditionalAlerts', async (req, res) => {
     .catch(e => res.status(400).send(e))
 
 })
-
 
 //route to return alerts filtered with alertCategory
 router.post('/category', authenticateToken, (req, res) => {

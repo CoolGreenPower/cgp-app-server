@@ -23,7 +23,11 @@ const findServiceCheckAlertsByBuildingsByUserId = async ({ userId }) => {
                     model: 'buildings',
                     populate: {
                         path: 'serviceCheckAlerts',
-                        model: 'serviceCheckAlerts'
+                        model: 'serviceCheckAlerts',
+                        populate: {
+                            path: 'device',
+                            model : 'utilities'
+                        }
                     }
                 }
             })

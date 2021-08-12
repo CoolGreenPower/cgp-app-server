@@ -14,7 +14,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
     .catch(err => console.log(err))
 })
 
-//route to return servicecheckalerts beloging to a user's buildings
+//route to return servicecheckalerts belonging to a user's buildings
 /**
  * Accepts userId
  * Returns servicecheckalerts belonging to the buildings associated with this userId
