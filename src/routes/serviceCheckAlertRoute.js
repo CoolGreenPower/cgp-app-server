@@ -10,8 +10,19 @@ router.get('/:id', authenticateToken, async (req, res) => {
     LOGGER.debug(`Entering get serviceCheckAlertById route after token authentication :: ${FILE_NAME}`)
 
     await serviceCheckAlertDao.getServiceCheckAlertbyAlertId(req.params.id)
-    .then(result => res.status(200).send(result))
-    .catch(err => console.log(err))
+        .then(result => res.status(200).send(result))
+        .catch(err => console.log(err))
+})
+
+/**
+ * update status of alert by id
+ */
+router.post('/updateAlert', authenticateToken, async (req, res) => {
+    LOGGER.debug(`Entering updateAlert after token authentication`)
+
+    await serviceCheckAlertDao.updateServices(req.body)
+        .then(result => res.status(200).send(result))
+        .catch(err => console.log(err))
 })
 
 //route to return servicecheckalerts belonging to a user's buildings
@@ -19,23 +30,23 @@ router.get('/:id', authenticateToken, async (req, res) => {
  * Accepts userId
  * Returns servicecheckalerts belonging to the buildings associated with this userId
  */
- router.post('/buildings', authenticateToken, async (req, res) => {
+router.post('/buildings', authenticateToken, async (req, res) => {
     LOGGER.debug(`Entering post service check alert route after token authentication :: ${FILE_NAME}`)
 
     const query = { userId: req.body.userId }
 
     //fetch alerts belonging to this userId
     await serviceCheckAlertDao.findServiceCheckAlertsByBuildingsByUserId(query)
-    .then((r) => {res.status(200).send(r)})
-    .catch(e => res.status(400).send(e))
-    
+        .then((r) => { res.status(200).send(r) })
+        .catch(e => res.status(400).send(e))
+
 })
 
 //route to update Services Selected and also, status of the alert
 router.post('/updateServices', authenticateToken, async (req, res) => {
     await serviceCheckAlertDao.updateServices(req.body)
-    .then(r => res.status(200).send(r))
-    .catch(err => res.status(400).send(err))
+        .then(r => res.status(200).send(r))
+        .catch(err => res.status(400).send(err))
 })
 
 /**
@@ -44,20 +55,19 @@ router.post('/updateServices', authenticateToken, async (req, res) => {
  * Accepts alertId, serviceDate, serviceTime, responsibleParty
  * Returns acknowledgement
  */
- router.post('/scheduleService', authenticateToken, async (req, res) => {
+router.post('/scheduleService', authenticateToken, async (req, res) => {
     await serviceCheckAlertDao.scheduleService(req.body)
-    .then(r => res.status(200).send(r))
-    .catch(err => res.status(400).send(err))
-    
+        .then(r => res.status(200).send(r))
+        .catch(err => res.status(400).send(err))
 })
 
 /**
  * Route to resolve service
  */
-router.post('/resolve', async(req, res) => {
+router.post('/resolve', async (req, res) => {
     await serviceCheckAlertDao.resolveService(req.body)
-    .then(r => res.status(200).send(r))
-    .catch(err => res.status(400).send(err))
+        .then(r => res.status(200).send(r))
+        .catch(err => res.status(400).send(err))
 })
 
 

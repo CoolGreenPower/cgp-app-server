@@ -26,7 +26,7 @@ const findServiceCheckAlertsByBuildingsByUserId = async ({ userId }) => {
                         model: 'serviceCheckAlerts',
                         populate: {
                             path: 'device',
-                            model : 'utilities'
+                            model: 'utilities'
                         }
                     }
                 }
@@ -56,8 +56,28 @@ const updateServices = async (query) => {
 
     return new Promise((resolve, reject) => {
         alert.findByIdAndUpdate(query.alertId, {
-            "servicesNeeded": query.servicesNeeded,
-            "status": query.status
+            "responsibleParty": query.responsibleParty,
+            "status": query.status,
+            "updatedAt": query.updatedAt
+        })
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
+//update status
+const updateStatus = async (query) => {
+    LOGGER.debug(`Entering updateStatus in :: ${FILE_NAME}`)
+
+    return new Promise((resolve, reject) => {
+        alert.findByIdAndUpdate(query.alertId, {
+            "status": query.status,
+            "updatedAt": query.updatedAt,
+            "responsibleParty": query.responsibleParty
         })
             .then(res => {
                 resolve(res)
@@ -111,5 +131,6 @@ module.exports = {
     updateServices,
     scheduleService,
     getServiceCheckAlertbyAlertId,
-    resolveService
+    resolveService,
+    updateStatus
 }

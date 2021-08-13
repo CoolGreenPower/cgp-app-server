@@ -5,7 +5,7 @@ haloS.initialize();
 
 // our private network key to use for all communication
 const ourNetworkKey = haloS.createNetworkKey("example@example.com", "password");
-var ourHaloCloudKey = haloS.createHaloCloudKey("smunikoti@coolgreenpower.com", "H@wking121");
+var ourHaloCloudKey = haloS.createHaloCloudKey("josef.c.mueller@gmail.com", "03Sw77X&fS^m");
 
 
 // const sensor = "/company/paragonrobotics.com/device/transform/22212/1/122/machine/3"
@@ -15,7 +15,7 @@ haloS.connectToHaloCloud("tcp", "paragonrobotics.com", ourHaloCloudKey,
     ourNetworkKey, function (isConnected) {
         if (isConnected) {
             console.log("Connection successful!")
-            const sensor = "/company/paragonrobotics.com/device/transform/20102/1/315/machine/3"
+            const sensor = "/company/paragonrobotics.com/device/transform/22212/1/122/machine/2"
             haloS.readValue(sensor, (r) => {
                 console.log("response", r)
             })

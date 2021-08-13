@@ -170,6 +170,7 @@ const scheduleService = async query => {
         alert.findByIdAndUpdate(query.alertId, {
             "serviceDate": query.serviceDate,
             "serviceTime": query.serviceTime,
+            "status": query.status,
             "responsibleParty": query.responsibleParty,
             "updatedAt": query.updatedAt
         })
@@ -182,7 +183,7 @@ const scheduleService = async query => {
     })
 }
 
-//start service
+//start service or change to 'Assigned'
 const startService = async query => {
     LOGGER.debug(`Entering start service in :: ${FILE_NAME}`)
 
