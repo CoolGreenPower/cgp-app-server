@@ -96,6 +96,7 @@ const scheduleService = async query => {
             "serviceDate": query.serviceDate,
             "serviceTime": query.serviceTime,
             "responsibleParty": query.responsibleParty,
+            "status": query.status,
             "updatedAt": query.updatedAt
         })
             .then(res => {

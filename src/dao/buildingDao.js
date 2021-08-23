@@ -14,20 +14,24 @@ const getBuildingsByUser = (query) => {
         }
 
         await User.find(query, attribute)
-        .populate({
-            path: 'sites',
-            model: 'buildings',
-            populate: {
-                path: 'utility',
-                model: 'utilities'
-            }
-        })
-        // .populate('utilities')
-        .exec()
-        .then(res => {
-            resolve(res)
-        })
-        .catch(err => reject(err))
+            .populate({
+                path: 'sites',
+                model: 'parentbuildings',
+                populate: {
+                    path: 'buildings',
+                    model: 'buildings',
+                    populate: {
+                        path: 'utility',
+                        model: 'utilities'
+                    }
+                }
+            })
+            // .populate('utilities')
+            .exec()
+            .then(res => {
+                resolve(res)
+            })
+            .catch(err => reject(err))
     })
 }
 
@@ -42,10 +46,10 @@ const getUsersByBuildingId = (buildingId) => {
         }
 
         await Building.findById(buildingId, attribute)
-        .populate('authorizedusers')
-        .exec()
-        .then(res => resolve(res))
-        .catch(err => reject(err))
+            .populate('authorizedusers')
+            .exec()
+            .then(res => resolve(res))
+            .catch(err => reject(err))
     })
 }
 

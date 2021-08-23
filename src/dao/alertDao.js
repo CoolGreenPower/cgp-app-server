@@ -70,6 +70,7 @@ const findAlertsByConditions = async (query) => {
     })
 }
 
+
 const findAlertsByBuildingsByUserId = async ({ userId }) => {
     LOGGER.debug(`Entering findAlertsByUserId in :: ${FILE_NAME}`)
 
@@ -97,7 +98,6 @@ const findAlertsByBuildingsByUserId = async ({ userId }) => {
             .then(res => resolve(res.sites))
             .catch(err => reject(err))
     })
-
 }
 
 const findAlertsByUserId = async ({ userId }) => {

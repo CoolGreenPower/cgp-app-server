@@ -4,6 +4,7 @@ const { addServiceRecord } = require('../services/serviceRecordService')
 
 const FILE_NAME = 'serviceRecordRoute.js'
 
+// Route to add Service Record to the database
 router.post(`/`, (req, res) => {
     LOGGER.debug(`Entering service record route in ${FILE_NAME}`)
     addServiceRecord(req.body)

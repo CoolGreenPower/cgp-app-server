@@ -18,7 +18,6 @@ router.get('/:id', authenticateToken, async (req, res) => {
         )
 })
 
-
 //route to update Services Selected and also, status of the alert
 router.post('/updateServices', authenticateToken, async (req, res) => {
     await alertDao.updateServices(req.body)
@@ -113,6 +112,9 @@ router.post('/buildings', async (req, res) => {
     .catch(err => res.status(400).send(err))
 })
 
+/**
+ * Route to fetch alerts by alertId, alert category and specific dates
+ */
 router.post('/conditionalAlerts', async (req, res) => {
     LOGGER.debug(`Entering post conditionalAlerts route after token authentication :: ${FILE_NAME}`)
 
